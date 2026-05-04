@@ -6,13 +6,13 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
     }
   },
   "scripts": {
-    "build": "npm run typecheck",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit"

@@ -3,6 +3,8 @@ import { normalizeError, toErrorMessage } from './error-handler.js';
 export type ApiRequestOptions = Omit<RequestInit, 'body'> & {
   /** JSON body; serialized automatically */
   json?: unknown;
+  /** Non-JSON body (e.g. FormData, Blob) */
+  rawBody?: BodyInit;
   /** Query parameters appended to the path */
   searchParams?: Record<string, string | number | boolean | undefined | null>;
 };
@@ -40,7 +42,7 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
   const fetchFn = config.fetchImpl ?? fetch;
 
   const request = async <T>(path: string, options: ApiRequestOptions = {}): Promise<T> => {
-    const { json, searchParams, headers: optionHeaders, ...init } = options;
+    const { json, rawBody, searchParams, headers: optionHeaders, ...init } = options;
     const url = buildUrl(config.baseUrl, path, searchParams);
 
     const headers = new Headers(config.defaultHeaders);
@@ -48,7 +50,7 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
       new Headers(optionHeaders).forEach((value, key) => headers.set(key, value));
     }
 
-    let body: BodyInit | undefined = init.body as BodyInit | undefined;
+    let body: BodyInit | undefined = rawBody;
     if (json !== undefined) {
       headers.set('content-type', 'application/json');
       body = JSON.stringify(json);
