@@ -9,6 +9,7 @@ export function capitalize(value: string): string {
   if (first === undefined) {
     return value;
   }
-  const rest = value.slice(String.fromCodePoint(first).length);
-  return `${String.fromCodePoint(first).toLocaleUpperCase()}${rest}`;
+  const head = String.fromCodePoint(first);
+  const rest = value.slice(head.length);
+  return `${head.toLocaleUpperCase()}${rest}`;
 }

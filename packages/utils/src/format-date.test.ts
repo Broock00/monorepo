@@ -10,4 +10,13 @@ describe('formatDate', () => {
   it('returns empty string for invalid input', () => {
     expect(formatDate('not-a-date')).toBe('');
   });
+
+  it('formats numeric timestamps', () => {
+    const s = formatDate(0);
+    expect(s.length).toBeGreaterThan(0);
+  });
+
+  it('returns empty string for NaN timestamp', () => {
+    expect(formatDate(Number.NaN)).toBe('');
+  });
 });
