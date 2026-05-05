@@ -17,12 +17,18 @@ export function normalizeError(
     return normalized;
   }
 
-  const message =
-    typeof input === 'string'
-      ? input
-      : input === null || input === undefined
-        ? 'Unknown error'
-        : JSON.stringify(input);
+  let message: string;
+  if (typeof input === 'string') {
+    message = input;
+  } else if (input === null || input === undefined) {
+    message = 'Unknown error';
+  } else {
+    try {
+      message = JSON.stringify(input);
+    } catch {
+      message = 'Unknown error';
+    }
+  }
 
   const err = new Error(message) as NormalizedError;
   err.cause = input;
