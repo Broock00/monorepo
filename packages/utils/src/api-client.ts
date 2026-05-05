@@ -24,6 +24,18 @@ export type ApiClient = {
   delete: <T>(path: string, options?: ApiRequestOptions) => Promise<T>;
 };
 
+function messageFromErrorPayload(payload: unknown, fallback: string): string {
+  if (typeof payload === 'string' && payload.trim() !== '') {
+    return payload;
+  }
+  if (typeof payload === 'object' && payload !== null) {
+    const obj = payload as Record<string, unknown>;
+    if (obj.message != null) return String(obj.message);
+    if (obj.error != null) return String(obj.error);
+  }
+  return fallback;
+}
+
 function buildUrl(baseUrl: string, path: string, searchParams?: ApiRequestOptions['searchParams']) {
   const url = new URL(path.startsWith('http') ? path : `${baseUrl.replace(/\/$/, '')}/${path.replace(/^\//, '')}`);
   if (searchParams) {
@@ -63,12 +75,7 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
       const payload = isJson ? await response.json().catch(() => null) : await response.text();
 
       if (!response.ok) {
-        const message =
-          typeof payload === 'object' && payload && 'message' in payload
-            ? String((payload as { message: unknown }).message)
-            : typeof payload === 'string'
-              ? payload
-              : response.statusText;
+        const message = messageFromErrorPayload(payload, response.statusText);
         throw normalizeError(new Error(message || `HTTP ${response.status}`), {
           status: response.status,
           url,
