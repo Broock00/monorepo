@@ -1,6 +1,6 @@
 # `@repo/feature-x`
 
-**Task manager** feature: create tasks, toggle completion, remove tasks. Uses **Zustand** for local state, **`@repo/ui-components`** for UI, and **`@repo/utils`** for `formatDate` and `capitalize`.
+**Task and study manager** feature: create, edit, delete, filter, and reschedule tasks while running a simple study timer. Uses **Zustand** for local state, **`@repo/ui-components`** for UI, and **`@repo/utils`** for `formatDate` and `capitalize`.
 
 ## Public API
 
@@ -8,7 +8,7 @@
 import { TaskManagerScreen, useTaskStore } from '@repo/feature-x';
 ```
 
-- `TaskManagerScreen` — ready-to-mount route-level UI.
+- `TaskManagerScreen` — ready-to-mount route-level UI with CRUD, filtering, and timer controls.
 - `useTaskStore` / `Task` types — exported for tests or advanced composition.
 
 ## Structure
@@ -24,7 +24,7 @@ src/
 ## Boundaries
 
 - Must **not** import `@repo/feature-y` (features stay isolated).
-- All UX copy and rules stay inside this package; the shell app only mounts the screen.
+- Task status, deadlines, filtering, and timer rules stay inside this package; the shell app only mounts the screen.
 
 ## Build
 

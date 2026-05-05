@@ -7,7 +7,7 @@ Nx was not scaffolded here because an existing `.git` tree prevented `create-nx-
 ## Layout
 
 ```
-apps/system-app          # Vite shell: routing + layout only (no feature logic)
+apps/system              # Vite shell: routing + layout only (no feature logic)
 packages/utils           # Pure TS utilities + fetch API client
 packages/ui-components   # React + Tailwind + Radix (design-system primitives)
 packages/feature-x       # Task manager feature (Zustand + UI + utils)
@@ -18,7 +18,7 @@ packages/feature-y       # Notes feature (Zustand + UI + utils)
 
 - **No imports between `feature-x` and `feature-y`**. They only talk through the app shell (or future shared contracts you add deliberately).
 - **`ui-components` stays generic**: primitives only, no domain rules.
-- **`system-app` composes** routes and chrome; business rules live inside feature packages.
+- **`system` composes** routes and chrome; business rules live inside feature packages.
 
 ## Requirements
 
@@ -41,7 +41,7 @@ npm run build
 
 | Script            | Description                                      |
 | ----------------- | ------------------------------------------------ |
-| `npm run dev`     | Start `system-app` (Vite) on port **5173**     |
+| `npm run dev`     | Start `@repo/system` (Vite) on port **5173**     |
 | `npm run build`   | Turbo pipeline: packages then Vite production  |
 | `npm run typecheck` | `tsc` in each package (waits on `^build` graph) |
 | `npm run test`    | Vitest in each workspace                         |
@@ -53,7 +53,7 @@ npm run build
 ```mermaid
 flowchart TB
   subgraph apps [apps]
-    SA[system-app]
+    SA[system]
   end
   subgraph features [packages]
     FX[feature-x]

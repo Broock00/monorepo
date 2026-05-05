@@ -1,6 +1,6 @@
 # `@repo/feature-y`
 
-**Notes** feature: create notes, edit title/body, delete, and **debounced search** via `@repo/utils`. Uses **Zustand** for state and **`@repo/ui-components`** for layout, dialog, and controls.
+**Notes and habit tracker** feature: create, edit, delete, and **debounced search** notes while tracking habits, streaks, and a weekly summary. Uses **Zustand** for state and **`@repo/ui-components`** for layout, dialog, and controls.
 
 ## Public API
 
@@ -21,7 +21,7 @@ src/
 ## Boundaries
 
 - Must **not** import `@repo/feature-x`.
-- Debounced filtering demonstrates shared utilities without coupling to feature-x.
+- Debounced filtering, habit tracking, streaks, and weekly summary logic stay inside this package.
 
 ## Build
 
