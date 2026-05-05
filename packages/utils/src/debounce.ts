@@ -11,6 +11,7 @@ export function debounce<T extends (...args: never[]) => unknown>(
   delayMs: number,
 ): Debounced<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
+  const ms = Number.isFinite(delayMs) ? Math.max(0, delayMs) : 0;
 
   const debounced = (...args: Parameters<T>) => {
     if (timer !== undefined) {
@@ -19,7 +20,7 @@ export function debounce<T extends (...args: never[]) => unknown>(
     timer = setTimeout(() => {
       timer = undefined;
       fn(...args);
-    }, delayMs);
+    }, ms);
   };
 
   debounced.cancel = () => {
