@@ -1,6 +1,6 @@
 export { formatDate } from './format-date.js';
 export { capitalize } from './capitalize.js';
-export { debounce } from './debounce.js';
+export { debounce, type Debounced } from './debounce.js';
 export {
   createApiClient,
   type ApiClient,
