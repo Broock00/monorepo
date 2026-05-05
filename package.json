@@ -1,46 +1,22 @@
 {
-  "name": "@repo/ui-components",
-  "version": "0.0.0",
+  "name": "modular-monorepo",
   "private": true,
   "type": "module",
-  "sideEffects": [
-    "**/*.css"
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./src/index.ts",
-      "default": "./src/index.ts"
-    },
-    "./styles.css": "./src/styles.css",
-    "./tailwind-preset": "./tailwind-preset.cjs"
-  },
   "scripts": {
-    "build": "npm run typecheck && tsc -p tsconfig.build.json",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
-  },
-  "peerDependencies": {
-    "react": "^18.3.1 || ^19.0.0",
-    "react-dom": "^18.3.1 || ^19.0.0"
-  },
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.4",
-    "@radix-ui/react-slot": "^1.1.1",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0"
+    "dev": "turbo run dev --filter=system-app",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "jsdom": "^25.0.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-=======
     "@eslint/js": "^9.17.0",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
@@ -52,8 +28,11 @@
     "prettier": "^3.4.2",
     "tailwindcss": "^3.4.17",
     "turbo": "^2.3.3",
->>>>>>> 4e9fed9 (fix: ensure Tailwind PostCSS resolves for system-app dev)
     "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
     "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
